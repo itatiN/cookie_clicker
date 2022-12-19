@@ -22,15 +22,13 @@ class CookieClicker:
         time.sleep(2)
         self.driver.get(self.SITE_LINK)
         time.sleep(10)
-        print("abriu")
-        self.driver.find_element_by_xpath(self.SITE_MAP["buttons"]["language"]["xpath"].click())
-        print("lingua")
 
-    # def language(self):
+    def set_language(self):
+        self.driver.find_element_by_xpath(self.SITE_MAP["buttons"]["language"]["xpath"].click())
 
     def click_on_cookie(self):
         self.driver.find_element_by_xpath(self.SITE_MAP["buttons"]["cookie"]["xpath"].click())
-        print("cliclou")
+
 
     def pick_better_upgrade(self):
         found = False
