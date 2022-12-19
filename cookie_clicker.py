@@ -22,19 +22,44 @@ class CookieClicker:
         time.sleep(2)
         self.driver.get(self.SITE_LINK)
         time.sleep(10)
-        language()
-
-    def language(self):
+        print("abriu")
         self.driver.find_element_by_xpath(self.SITE_MAP["buttons"]["language"]["xpath"].click())
+        print("lingua")
+
+    # def language(self):
 
     def click_on_cookie(self):
         self.driver.find_element_by_xpath(self.SITE_MAP["buttons"]["cookie"]["xpath"].click())
+        print("cliclou")
 
     def pick_better_upgrade(self):
-        pass
+        found = False
+        atual_upgrade = 2
+
+        while not found:
+            object = self.SITE_MAP["buttons"]["upgrade"]["xpath"].replace("$$NUMBER$$", str(atual_upgrade))
+            object_class = self.driver.find_element_by_xpath(object).get_atribute("class")
+
+            if not "enable" in object_class:
+                found = True
+            else:
+                atual_upgrade += 1
+        return atual_upgrade -1
 
     def buy_upgrade(self):
-        pass
+        object = self.SITE_MAP["buttons"]["upgrade"]["xpath"].replace("$$NUMBER$$", str(self.pick_better_upgrade()))
+        self.driver.find_element_by_xpath(object).click()
+
 
 cookie = CookieClicker()
 cookie.open_site()
+
+i = 0
+
+while True:
+    if i % 500 == 0 and i !=0:
+        time.sleep(1)
+        cookie.buy_upgrade()
+        time.sleep(1)
+    cookie.click_on_cookie()
+    i+=1
